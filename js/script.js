@@ -28,3 +28,39 @@ backToTopBtn.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+let btn = document.getElementById("mask_btn");
+let createMask = () => {
+    if (document.getElementById("mask")) {
+        return true;
+    }
+    let mask = document.createElement("div");
+    mask.id = "mask";
+    mask.className = "mask";
+    document.body.appendChild(mask);
+    document.documentElement.classList.add("htmlMask");
+
+    let popupImage = document.createElement("img");
+    popupImage.src = "static/img/popup_img.png";
+    popupImage.className = "popup-img";
+    document.body.appendChild(popupImage);
+
+    mask.addEventListener("click", deleteMask);
+};
+let deleteMask = () => {
+    let mask;
+    if (mask = document.getElementById("mask")) {
+        mask.removeEventListener("click", deleteMask);
+        mask.parentNode.removeChild(mask);
+        document.documentElement.classList.remove("htmlMask");
+
+        let popupImage = document.querySelector('.popup-img');
+        if (popupImage) {
+            popupImage.parentNode.removeChild(popupImage);
+        }
+    }
+};
+
+btn.addEventListener("click", function () {
+    createMask();
+});
